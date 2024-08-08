@@ -1,11 +1,29 @@
 <mat-tab-group>
   <mat-tab label="Stocks">
     <mat-grid-list cols="4" >
-    <div *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
-      <mat-grid-tile> <app-stock /> </mat-grid-tile> 
+    <div *ngFor="let ticker of stockList">
+      <mat-grid-tile> <app-stock [ticker_symbol]="ticker" /> </mat-grid-tile> 
       </div> </mat-grid-list> </mat-tab>
-  <mat-tab label="Bonds"> Content 2 </mat-tab>
+  <mat-tab label="Bonds">
+    <mat-grid-list cols="4" >
+    <div *ngFor="let ticker of bondList">
+      <mat-grid-tile>
+    
+    <app-bond [ticker_symbol]="ticker"/> 
+  </mat-grid-tile> 
+</div> </mat-grid-list>
+</mat-tab>
 
 </mat-tab-group>
+
+<!-- <mat-form-field>
+  <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker">
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field> -->
+
+
 
 

@@ -7,7 +7,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { StockComponent } from './stock/stock.component';
 import { BondComponent } from './bond/bond.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -17,13 +20,13 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     
   ],
   imports: [
-    CommonModule, MatTabsModule,MatCardModule,MatGridListModule,
+    CommonModule, MatTabsModule,MatCardModule,MatGridListModule, MatDatepickerModule, MatInputModule, MatFormFieldModule
   ],
   exports: [
     MainScreenComponent, MatTabsModule, StockComponent, BondComponent, MatCardModule,MatGridListModule
   ],
   providers: [
-    provideHttpClient( withFetch(),)
+    provideHttpClient( withFetch(),), provideNativeDateAdapter()
   ]
 })
 export class Screen1Module {

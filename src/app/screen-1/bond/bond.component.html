@@ -1,1 +1,24 @@
-<p>bond works!</p>
+
+<mat-card>
+    <mat-card-header>
+       {{ticker_symbol}}
+    </mat-card-header>
+    <mat-card-content>
+      Issuer : {{ issuer }}
+    </mat-card-content><mat-card-content>
+       Coupon rate : {{coupon_rate}}
+    </mat-card-content>
+    <mat-card-content>
+        Credit rating : {{credit_rating}}
+     </mat-card-content>
+    <mat-card-content>
+      Bond Price : ${{bond_price}}
+       </mat-card-content><mat-card-content>
+         Face Value: {{face_value}}
+       </mat-card-content>
+      <mat-card-content>
+      Maturity date : {{maturity_date}}
+    </mat-card-content>
+ </mat-card>
+
+

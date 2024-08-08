@@ -11,13 +11,15 @@ import { BondComponent } from '../bond/bond.component';
 
 })
 export class MainScreenComponent {
-  stockList : Array<StockComponent> = [];
-  bondList: Array<BondComponent> = [];
+  stockList : Array<String> = [];
+  bondList: Array<String> = [];
   
   constructor(private http: HttpClient) {  
-    //fetch stocklist and bond list using http
-    this.stockList = []
+    //fetch list of stock ids
 
+    this.stockList = ['AAPL', 'HDFC', 'CITI', "ICICI", "MSFT", "X", "CRED", "VISA"  ]
+
+this.bondList = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ]
 
     }  
 }
