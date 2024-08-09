@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuySellPopupComponent } from './buy-sell-popup.component';
+import { BuyselldialogComponent } from './buyselldialog.component';
 
-describe('BuySellPopupComponent', () => {
-  let component: BuySellPopupComponent;
-  let fixture: ComponentFixture<BuySellPopupComponent>;
+describe('BuyselldialogComponent', () => {
+  let component: BuyselldialogComponent;
+  let fixture: ComponentFixture<BuyselldialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BuySellPopupComponent]
+      declarations: [BuyselldialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BuySellPopupComponent);
+    fixture = TestBed.createComponent(BuyselldialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

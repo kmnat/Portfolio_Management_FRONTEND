@@ -11,41 +11,38 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
-import { BuySellPopupComponent } from './buy-sell-popup/buy-sell-popup.component';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
-  MatDialog,
+  MatDialogModule,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
-  MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-
+import { BuyselldialogComponent } from './buyselldialog/buyselldialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     MainScreenComponent,
     StockComponent,
     BondComponent,
-    BuySellPopupComponent,
+    BuyselldialogComponent,
     
   ],
   imports: [
-    CommonModule, MatTabsModule,MatCardModule,MatGridListModule, MatDatepickerModule, MatInputModule, MatFormFieldModule,  MatDialog,
+    CommonModule, MatTabsModule,MatCardModule,MatGridListModule, MatDatepickerModule, MatInputModule, MatFormFieldModule, MatDialogModule,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle, FormsModule, MatButtonModule
+  MatDialogTitle, FormsModule, MatButtonModule,ReactiveFormsModule
   ],
   exports: [
     MainScreenComponent, MatTabsModule, StockComponent, BondComponent, MatCardModule,MatGridListModule,MatDialogActions,
     MatDialogClose,
-    MatDialogContent,
-    MatDialogRef,
-    MatDialogTitle, FormsModule, MatButtonModule
+    MatDialogContent, ReactiveFormsModule,
+    MatDialogTitle, FormsModule, MatButtonModule, MatDialogModule
   ],
   providers: [
     provideHttpClient( withFetch(),), provideNativeDateAdapter()

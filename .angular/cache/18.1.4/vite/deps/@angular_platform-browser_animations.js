@@ -1,9 +1,4 @@
 import {
-  BrowserModule,
-  DomRendererFactory2
-} from "./chunk-GTYVWZNU.js";
-import "./chunk-7ZXCLYVB.js";
-import {
   AnimationDriver,
   AnimationEngine,
   AnimationRendererFactory,
@@ -11,8 +6,13 @@ import {
   NoopAnimationDriver,
   WebAnimationsDriver,
   WebAnimationsStyleNormalizer
-} from "./chunk-EG75GJFO.js";
-import "./chunk-NZJI4BDA.js";
+} from "./chunk-QQPNRZPJ.js";
+import {
+  BrowserModule,
+  DomRendererFactory2
+} from "./chunk-GTYVWZNU.js";
+import "./chunk-7ZXCLYVB.js";
+import "./chunk-3JWJI5VN.js";
 import {
   DOCUMENT
 } from "./chunk-EJ46XPQC.js";

@@ -2,7 +2,7 @@
   <mat-tab label="Stocks">
     <mat-grid-list cols="4" >
     <div *ngFor="let ticker of stockList">
-      <mat-grid-tile> <app-stock [ticker_symbol]="ticker" /> </mat-grid-tile> 
+      <mat-grid-tile> <app-stock (click)="openDialog(ticker)" [ticker_symbol]="ticker" /> </mat-grid-tile> 
       </div> </mat-grid-list> </mat-tab>
   <mat-tab label="Bonds">
     <mat-grid-list cols="4" >

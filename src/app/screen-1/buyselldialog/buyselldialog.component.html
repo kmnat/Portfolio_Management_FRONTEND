@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>{{data.ticker_symbol}}</h2>
+<mat-dialog-content>
+Current volume held by user : {{ data.volumeHeldByUser }} <br>
+Current price : {{data.marketPrice}}<br>
+Market Volume : {{data.marketVolume}}<br>
+Money invested by user : {{data.moneyInvestedByUser}} <br>
+<br><br>
+<mat-tab-group>
+    <mat-tab label="Buy">
+        
+        <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field> 
+
+          <mat-form-field>
+         
+            <mat-label> Quantity </mat-label>
+            <input type="number" min="0" max="data.marketVolume" [formControl]="quantity" placeholder="0" matInput>
+            </mat-form-field>
+<br>
+    
+        Selected Quantity = {{quantity.value}}  
+   <br>
+    Price : {{ quantity.value * data.marketPrice}}
+<br>
+    <button mat-raised-button>Make purchase</button>
+    </mat-tab>
+    <mat-tab label="Sell">  <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    
+      <mat-form-field>
+         
+        <mat-label> Quantity </mat-label>
+        <input type="number" min="0" max="{{data.volumeHeldByUser}}" matInput [formControl]="quantity">
+        </mat-form-field>
+        <br>
+    
+        Selected Quantity = {{quantity.value}}  
+   <br>
+    Price : {{ quantity.value * data.marketPrice}}
+<br>
+    <button mat-raised-button>Sell</button>
+</mat-tab>
+   
+  </mat-tab-group>
+  
+
+
+ 
+</mat-dialog-content>
