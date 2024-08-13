@@ -1,0 +1,51 @@
+<mat-table [dataSource]="cashFlowEntries" class="mat-elevation-z8">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+  
+    <!-- Ticker Symbol Column -->
+    <ng-container matColumnDef="ticker_symbol">
+      <mat-header-cell *matHeaderCellDef> Ticker Symbol </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.ticker_symbol}} </mat-cell>
+    </ng-container>
+  
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+    </ng-container>
+  
+    <!-- Asset Name Column -->
+    <ng-container matColumnDef="asset_name">
+      <mat-header-cell *matHeaderCellDef> Asset Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.asset_name}} </mat-cell>
+    </ng-container>
+  
+    <!-- Realized PnL Column -->
+    <ng-container matColumnDef="realized_pnl">
+      <mat-header-cell *matHeaderCellDef> Realized PnL </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.realized_pnl}} </mat-cell>
+    </ng-container>
+  
+    <!-- Unrealized PnL Column -->
+    <ng-container matColumnDef="unrealized_pnl">
+      <mat-header-cell *matHeaderCellDef> Unrealized PnL </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.unrealized_pnl}} </mat-cell>
+    </ng-container>
+  
+    <!-- Header Row -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  
+    <!-- Row -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <div style="width: 600px;">
+    <canvas #chart id="chart" > {{chart }}</canvas>
+  </div>
+  <div style="width: 600px">
+    <canvas #chartAsset id="chartAsset"  > {{chartAsset }}</canvas>
+  </div>
+  <button id="somebutton" mat-flat-button>Switch to charts</button>
+ 

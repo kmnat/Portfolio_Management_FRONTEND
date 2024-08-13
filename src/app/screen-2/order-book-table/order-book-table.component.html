@@ -1,0 +1,107 @@
+<mat-tab-group>
+    <mat-tab label="Stocks">
+        <mat-table [dataSource]="stockEntries" class="mat-elevation-z8">
+            <!-- Order ID Column -->
+            <ng-container matColumnDef="order_id">
+              <mat-header-cell *matHeaderCellDef> Order ID </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.order_id}} </mat-cell>
+            </ng-container>
+          
+            <!-- Ticker Symbol Column -->
+            <ng-container matColumnDef="ticker_symbol">
+              <mat-header-cell *matHeaderCellDef> Ticker Symbol </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.ticker_symbol}} </mat-cell>
+            </ng-container>
+          
+            <!-- Trade Date Column -->
+            <ng-container matColumnDef="trade_date">
+              <mat-header-cell *matHeaderCellDef> Trade Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.trade_date}} </mat-cell>
+            </ng-container>
+          
+            <!-- Asset Name Column -->
+            <ng-container matColumnDef="asset_name">
+              <mat-header-cell *matHeaderCellDef> Asset Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.asset_name}} </mat-cell>
+            </ng-container>
+          
+            <!-- Volume Column -->
+            <ng-container matColumnDef="volume">
+              <mat-header-cell *matHeaderCellDef> Volume </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.volume}} </mat-cell>
+            </ng-container>
+          
+            <!-- Transaction Date Column -->
+            <ng-container matColumnDef="transaction_date">
+              <mat-header-cell *matHeaderCellDef> Transaction Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.transaction_date}} </mat-cell>
+            </ng-container>
+          
+            <!-- Bought Price Column -->
+            <ng-container matColumnDef="bought_price">
+              <mat-header-cell *matHeaderCellDef> Bought Price </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.bought_price}} </mat-cell>
+            </ng-container>
+          
+            <!-- Header Row -->
+            <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+          
+            <!-- Row -->
+            <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+          </mat-table>
+          <button mat-flat-button>Switch to charts</button>  
+    </mat-tab>
+    <mat-tab label="Bonds">
+        <mat-table [dataSource]="bondEntries" class="mat-elevation-z8">
+            <!-- Order ID Column -->
+            <ng-container matColumnDef="order_id">
+              <mat-header-cell *matHeaderCellDef> Order ID </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.order_id}} </mat-cell>
+            </ng-container>
+          
+            <!-- Ticker Symbol Column -->
+            <ng-container matColumnDef="ticker_symbol">
+              <mat-header-cell *matHeaderCellDef> Ticker Symbol </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.ticker_symbol}} </mat-cell>
+            </ng-container>
+          
+            <!-- Trade Date Column -->
+            <ng-container matColumnDef="trade_date">
+              <mat-header-cell *matHeaderCellDef> Trade Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.trade_date}} </mat-cell>
+            </ng-container>
+          
+            <!-- Asset Name Column -->
+            <ng-container matColumnDef="asset_name">
+              <mat-header-cell *matHeaderCellDef> Asset Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.asset_name}} </mat-cell>
+            </ng-container>
+          
+            <!-- Transaction Date Column -->
+            <ng-container matColumnDef="transaction_date">
+              <mat-header-cell *matHeaderCellDef> Transaction Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.transaction_date}} </mat-cell>
+            </ng-container>
+          
+            <!-- Bond Price Column -->
+            <ng-container matColumnDef="bond_price">
+              <mat-header-cell *matHeaderCellDef> Bond Price </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.bond_price}} </mat-cell>
+            </ng-container>
+          
+            <!-- Maturity Date Column -->
+            <ng-container matColumnDef="maturity_date">
+              <mat-header-cell *matHeaderCellDef> Maturity Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.maturity_date}} </mat-cell>
+            </ng-container>
+          
+            <!-- Header Row -->
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          
+            <!-- Row -->
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <button mat-flat-button>Switch to charts</button>
+    </mat-tab>
+
+</mat-tab-group>

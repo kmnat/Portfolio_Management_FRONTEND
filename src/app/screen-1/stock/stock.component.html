@@ -1,25 +1,34 @@
-
-   <mat-card>
-      <mat-card-header>
-         {{company_name}}
-      </mat-card-header>
-      <mat-card-content>
-         Ticker Symbol : {{ticker_symbol}}
-      </mat-card-content><mat-card-content>
-         Industry : {{industry}}
-      </mat-card-content>
-      <mat-card-content>
-         Market Price : ${{market_price}}
-         </mat-card-content><mat-card-content>
-            Market Volume : {{market_volume}}
-         </mat-card-content>
-        <mat-card-content>
-         Week 52 high : ${{ week52high}}
-        </mat-card-content><mat-card-content>
-
+<mat-card appearance="outlined">
+   <mat-card-header>
+     <mat-card-title>
+       {{ ticker_symbol }}
+     </mat-card-title>
+     <mat-card-subtitle>{{ company_name }}</mat-card-subtitle>
+   </mat-card-header>
+ 
+   <mat-card-content>
+     <div class="chart-container">
+       <canvas #chart id="chart"></canvas>
+     </div>
+   </mat-card-content>
+ 
+   <mat-card-content>
+     <div class="info-container">
+    
+         <!-- <mat-list-item>
+         
+           <span >Industry {{ industry }}</span>
+         </mat-list-item> -->
         
-        
-         Week 52 low : ${{ week52low}}
-      </mat-card-content>
-   </mat-card>
-
+         
+       <h6>   ${{ market_price }}</h6>
+  <span style="color: #525252;">  Volume: {{ average_volume }}</span>    
+   
+    
+        <pre class="tab1"><span style="font-weight:500;">w52high</span> ${{ week52high }} &emsp; <span style="font-weight: 500;"> w52low </span>${{ week52low }}</pre>
+    
+    <span style="color: #525252; font-weight:500;">   {{ market_exchange }}</span> 
+     </div>
+   </mat-card-content>
+ </mat-card>
+ 

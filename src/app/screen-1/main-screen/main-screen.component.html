@@ -1,29 +1,38 @@
 <mat-tab-group>
+  <!-- Stocks Tab -->
   <mat-tab label="Stocks">
-    <mat-grid-list cols="4" >
-    <div *ngFor="let ticker of stockList">
-      <mat-grid-tile> <app-stock (click)="openDialog(ticker)" [ticker_symbol]="ticker" /> </mat-grid-tile> 
-      </div> </mat-grid-list> </mat-tab>
+    <mat-grid-list cols="2"  >
+      <mat-grid-tile *ngFor="let ticker of stockList">
+        <app-stock 
+          (click)="openDialog(ticker, true)"
+          [ticker_symbol]="ticker.id"
+          [company_name]="ticker.company_name"
+          [industry]="ticker.industry"
+          [market_price]="ticker.stock_price"
+          [average_volume]="ticker.average_volume"
+          [week52high]="ticker.week52high"
+          [week52low]="ticker.week52low"
+          [market_exchange]="ticker.market_exchange">
+        </app-stock>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-tab>
+
+  <!-- Bonds Tab -->
   <mat-tab label="Bonds">
-    <mat-grid-list cols="4" >
-    <div *ngFor="let ticker of bondList">
-      <mat-grid-tile>
-    
-    <app-bond [ticker_symbol]="ticker"/> 
-  </mat-grid-tile> 
-</div> </mat-grid-list>
-</mat-tab>
-
+    <mat-grid-list cols="2" >
+      <mat-grid-tile *ngFor="let ticker of bondList">
+        <app-bond 
+          (click)="openDialog(ticker, false)"
+          [ticker_symbol]="ticker.id"
+          [bond_price]="ticker.bond_price"
+          [coupon_rate]="ticker.coupon_rate"
+          [credit_rating]="ticker.credit_rating"
+          [issuer]="ticker.issuer"
+          [face_value]="ticker.face_value"
+          [maturity_date]="ticker.maturity_date">
+        </app-bond>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-tab>
 </mat-tab-group>
-
-<!-- <mat-form-field>
-  <mat-label>Choose a date</mat-label>
-  <input matInput [matDatepicker]="picker">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field> -->
-
-
-
-

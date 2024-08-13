@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'portfolio-management';
+  
+ apiServiceUrl = 'https://my-json-server.typicode.com/ishashukla183/temporary_data/'
+
 }

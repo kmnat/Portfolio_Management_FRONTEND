@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,7 +17,14 @@ export class BuyselldialogComponent {
   buyTransactionPrice = 0;
   sellTransactionPrice = 0;
   quantity = new FormControl(0);
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+
+
+  postToTradebook(){
+
+  } 
+  
+  
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
 
   }
 

@@ -22,7 +22,9 @@ import {
 } from '@angular/material/dialog';
 import { BuyselldialogComponent } from './buyselldialog/buyselldialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 @NgModule({
   declarations: [
     MainScreenComponent,
@@ -33,21 +35,22 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule, MatTabsModule,MatCardModule,MatGridListModule, MatDatepickerModule, MatInputModule, MatFormFieldModule, MatDialogModule,
-  MatDialogActions,
+  MatDialogActions, MatIconModule, MatListModule,
   MatDialogClose,
   MatDialogContent,
-  MatDialogTitle, FormsModule, MatButtonModule,ReactiveFormsModule
+  MatDialogTitle, FormsModule, MatButtonModule,ReactiveFormsModule,  MatTableModule
   ],
   exports: [
     MainScreenComponent, MatTabsModule, StockComponent, BondComponent, MatCardModule,MatGridListModule,MatDialogActions,
-    MatDialogClose,
+    MatDialogClose,MatIconModule, MatListModule,
     MatDialogContent, ReactiveFormsModule,
-    MatDialogTitle, FormsModule, MatButtonModule, MatDialogModule
+    MatDialogTitle, FormsModule, MatButtonModule, MatDialogModule, MatTableModule
   ],
   providers: [
     provideHttpClient( withFetch(),), provideNativeDateAdapter()
   ]
 })
 export class Screen1Module {
+  
 
  }

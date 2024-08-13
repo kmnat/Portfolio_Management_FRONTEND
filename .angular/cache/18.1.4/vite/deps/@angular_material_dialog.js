@@ -4,15 +4,18 @@ import {
   OverlayContainer,
   OverlayModule,
   OverlayRef
-} from "./chunk-CNA2HISD.js";
+} from "./chunk-KHHM2B7L.js";
 import {
   BasePortalOutlet,
   CdkPortalOutlet,
-  CdkScrollable,
   ComponentPortal,
   PortalModule,
   TemplatePortal
-} from "./chunk-IERGZUE7.js";
+} from "./chunk-72NI3LTT.js";
+import {
+  CdkScrollable
+} from "./chunk-PJRAMVNX.js";
+import "./chunk-UAM3ZOE7.js";
 import {
   animate,
   animateChild,
@@ -22,7 +25,7 @@ import {
   style,
   transition,
   trigger
-} from "./chunk-3JWJI5VN.js";
+} from "./chunk-U5YJIYYE.js";
 import {
   A11yModule,
   Directionality,
@@ -35,11 +38,11 @@ import {
   _getFocusedElementPierceShadowDom,
   coerceNumberProperty,
   hasModifierKey
-} from "./chunk-SKB73RVL.js";
+} from "./chunk-UKN45I6Q.js";
 import {
   DOCUMENT,
   Location
-} from "./chunk-EJ46XPQC.js";
+} from "./chunk-LC2OPAOI.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -61,8 +64,6 @@ import {
   TemplateRef,
   ViewChild,
   ViewEncapsulation$1,
-  __spreadProps,
-  __spreadValues,
   afterNextRender,
   defer,
   filter,
@@ -94,7 +95,11 @@ import {
   ɵɵqueryRefresh,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-ZCDJRECH.js";
+} from "./chunk-SGNZRHJF.js";
+import {
+  __spreadProps,
+  __spreadValues
+} from "./chunk-KBUIKKCC.js";
 
 // node_modules/@angular/cdk/fesm2022/dialog.mjs
 function CdkDialogContainer_ng_template_0_Template(rf, ctx) {

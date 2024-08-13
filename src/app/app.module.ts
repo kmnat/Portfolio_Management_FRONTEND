@@ -7,6 +7,9 @@ import { Screen1Module } from './screen-1/screen-1.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { Screen2Module } from './screen-2/screen-2.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,9 +18,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     BrowserAnimationsModule,
     AppRoutingModule,
     Screen1Module,
+    Screen2Module,
+    NgbModule, 
  
   ],
   providers: [provideHttpClient(withFetch()), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+
+}

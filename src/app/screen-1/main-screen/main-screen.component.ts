@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, inject } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
+import { environment } from '../../../environments/environment.development';
 import {
-  MatDialogModule, MatDialog
+  MatDialog
 } from '@angular/material/dialog';
 import { BuyselldialogComponent } from '../buyselldialog/buyselldialog.component';
+import { StockComponent } from '../stock/stock.component';
+import { BondComponent } from '../bond/bond.component';
+
 
 
 @Component({
@@ -15,32 +18,58 @@ import { BuyselldialogComponent } from '../buyselldialog/buyselldialog.component
 })
 
 export class MainScreenComponent {
-  stockList : Array<String> = [];
-  bondList: Array<String> = [];
+  stockList : Array<any> = [];
+  bondList: Array<any> = [];
   readonly dialog = inject(MatDialog);
+  apiServiceUrl = environment.apiUrl
+  fetchStockList(){
+    this.http.get<any>(this.apiServiceUrl + 'stocks/').subscribe(config  => {
+  
+      for(let i = 0; i < config.length; i++){
+        this.stockList[i] = config[i];
+      }
+    });
+  }
+
+
+  fetchBondList(){
+    this.http.get<any>(this.apiServiceUrl + 'bonds/').subscribe(config  => {
+  
+      for(let i = 0; i < config.length; i++){
+        this.bondList[i] = config[i];
+      }
+    });
+
+  }
+
 
   constructor(private http: HttpClient) {  
     //fetch list of stock ids
 
-    this.stockList = ['AAPL', 'HDFC', 'CITI', "ICICI", "MSFT", "X", "CRED", "VISA"  ]
-
-    this.bondList = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ]
+    this.fetchStockList();
+    this.fetchBondList();
 
     }  
 
-    openDialog(ticker) {
-      this.dialog.open(BuyselldialogComponent, {
-        data: {
-          // animal: 'panda',
-  //         buyDate;
-  // sellDate: Date;
-  marketPrice : 3928392382,
-  marketVolume : 782738233,
-  volumeHeldByUser: 3849348394,
-  moneyInvestedByUser: 797293723,
-  ticker_symbol: ticker
 
-        },
+    fetchStockOrderBookData(){
+
+    }
+
+    fetchBondOrderBookData(){
+    }
+
+
+    openDialog(ticker, isStock:boolean) {
+      let data = {
+        ...ticker,
+        type: isStock? 'stock' : 'bond'
+      }
+      //fetch data from api based on ticker_id parameter
+
+      this.dialog.open(BuyselldialogComponent, 
+        {
+        data: data,
       });
     }
 
