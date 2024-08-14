@@ -1,32 +1,29 @@
 <div *ngIf="data.type == 'stock'">
-<h2 mat-dialog-title>{{data.id}}</h2>
+<h2 mat-dialog-title>{{data.ticker_symbol}}</h2>
 <mat-dialog-content>
 
 <mat-tab-group>
     <mat-tab label="Buy">
         
-        <mat-form-field>
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
+        <!-- <mat-form-field>
+            <mat-label >Choose a date</mat-label>
+            <input disabled matInput [matDatepicker]="picker">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field> 
+          </mat-form-field>  -->
 
           <mat-form-field>
          
             <mat-label> Quantity </mat-label>
             <input type="number" min="0" [formControl]="quantity" placeholder="0" matInput>
             </mat-form-field>
-<br>
-    
-        Selected Quantity = {{quantity.value}}  
-   <br>
-    Price : {{ quantity.value * data.stock_price}}
-<br>
-    <button mat-raised-button>Make purchase</button>
+
+    <pre>  <span>Selected Quantity: {{quantity.value}}    Price: {{ quantity.value * data.stockPrice}} </span></pre>
+
+    <button mat-raised-button (click)="buyStock()">Make purchase</button>
     </mat-tab>
-    <mat-tab label="Sell">  <mat-form-field>
+    <!-- <mat-tab label="Sell">  <mat-form-field>
         <mat-label>Choose a date</mat-label>
         <input matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
@@ -39,14 +36,11 @@
         <mat-label> Quantity </mat-label>
         <input type="number" min="0" matInput [formControl]="quantity">
         </mat-form-field>
-        <br>
-    
-        Selected Quantity = {{quantity.value}}  
-   <br>
-    Price : {{ quantity.value * data.stock_price}}
-<br>
-    <button mat-raised-button>Sell</button>
-</mat-tab>
+       <pre> <span> Selected Quantity: {{quantity.value}}    Price: {{ quantity.value * data.stock_price}}</span></pre>
+        
+
+    <button mat-raised-button (click)="sellStock">Sell</button>
+</mat-tab> -->
    
   </mat-tab-group>
   
@@ -62,28 +56,23 @@
 <mat-tab-group>
     <mat-tab label="Buy">
         
-        <mat-form-field>
+        <!-- <mat-form-field>
             <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
+            <input disabled matInput [matDatepicker]="picker">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field> 
+          </mat-form-field>  -->
 
           <mat-form-field>
          
             <mat-label> Quantity </mat-label>
-            <input type="number" min="0"  [formControl]="quantity" placeholder="0" matInput>
+            <input type="number" min="0"   [formControl]="quantity" placeholder="0" matInput>
             </mat-form-field>
-<br>
-    
-        Selected Quantity = {{quantity.value}}  
-   <br>
-    Price : {{ quantity.value * data.bond_price}}
-<br>
-    <button mat-raised-button>Make purchase</button>
+  <pre> <span> Selected Quantity: {{quantity.value}}    Price: {{ quantity.value * data.bondPrice}}</span></pre>
+    <button mat-raised-button (click)="buyBond()">Make purchase</button>
     </mat-tab>
-    <mat-tab label="Sell">  <mat-form-field>
+    <!-- <mat-tab label="Sell">  <mat-form-field>
         <mat-label>Choose a date</mat-label>
         <input matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
@@ -96,14 +85,10 @@
         <mat-label> Quantity </mat-label>
         <input type="number" min="0"  matInput [formControl]="quantity">
         </mat-form-field>
-        <br>
-    
-        Selected Quantity = {{quantity.value}}  
-   <br>
-    Price : {{ quantity.value * data.bond_price}}
-<br>
-    <button mat-raised-button>Sell</button>
-</mat-tab>
+        <pre> <span> Selected Quantity: {{quantity.value}}    Price: {{ quantity.value * data.bond_price}}</span></pre>
+        
+    <button mat-raised-button (click)="sellStock">Sell</button>
+</mat-tab> -->
    
   </mat-tab-group>
   

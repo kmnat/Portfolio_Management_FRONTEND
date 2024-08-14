@@ -23,17 +23,18 @@ export class MainScreenComponent {
   readonly dialog = inject(MatDialog);
   apiServiceUrl = environment.apiUrl
   fetchStockList(){
-    this.http.get<any>(this.apiServiceUrl + 'stocks/').subscribe(config  => {
+    this.http.get<any>(this.apiServiceUrl + '/assets/stocks').subscribe(config  => {
   
       for(let i = 0; i < config.length; i++){
         this.stockList[i] = config[i];
       }
+      console.log(config);
     });
   }
 
 
   fetchBondList(){
-    this.http.get<any>(this.apiServiceUrl + 'bonds/').subscribe(config  => {
+    this.http.get<any>(this.apiServiceUrl + '/assets/bonds').subscribe(config  => {
   
       for(let i = 0; i < config.length; i++){
         this.bondList[i] = config[i];

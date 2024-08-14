@@ -5,14 +5,14 @@
       <mat-grid-tile *ngFor="let ticker of stockList">
         <app-stock 
           (click)="openDialog(ticker, true)"
-          [ticker_symbol]="ticker.id"
-          [company_name]="ticker.company_name"
+          [ticker_symbol]="ticker.tickerSymbol"
+          [company_name]="ticker.companyName"
           [industry]="ticker.industry"
-          [market_price]="ticker.stock_price"
-          [average_volume]="ticker.average_volume"
-          [week52high]="ticker.week52high"
-          [week52low]="ticker.week52low"
-          [market_exchange]="ticker.market_exchange">
+          [market_price]="ticker.stockPrice"
+          [average_volume]="ticker.averageVolume"
+          [week52high]="ticker.week52High"
+          [week52low]="ticker.week52Low"
+          [market_exchange]="ticker.marketExchange">
         </app-stock>
       </mat-grid-tile>
     </mat-grid-list>
@@ -24,13 +24,13 @@
       <mat-grid-tile *ngFor="let ticker of bondList">
         <app-bond 
           (click)="openDialog(ticker, false)"
-          [ticker_symbol]="ticker.id"
-          [bond_price]="ticker.bond_price"
-          [coupon_rate]="ticker.coupon_rate"
-          [credit_rating]="ticker.credit_rating"
+          [ticker_symbol]="ticker.tickerSymbol"
+          [bond_price]="ticker.bondPrice"
+          [coupon_rate]="ticker.couponRate"
+          [credit_rating]="ticker.creditRating"
           [issuer]="ticker.issuer"
-          [face_value]="ticker.face_value"
-          [maturity_date]="ticker.maturity_date">
+          [face_value]="ticker.faceValue"
+          [maturity_date]="ticker.maturityDate">
         </app-bond>
       </mat-grid-tile>
     </mat-grid-list>

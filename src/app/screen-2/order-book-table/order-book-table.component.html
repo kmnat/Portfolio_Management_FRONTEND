@@ -1,3 +1,10 @@
+<button id="somebutton" (click)="handleSwitch()" mat-flat-button>
+  Switch to  <span *ngIf="toggleCharts"> table
+    </span>
+    <span *ngIf="!toggleCharts">
+    charts </span></button> 
+   
+<div *ngIf="!toggleCharts">
 <mat-tab-group>
     <mat-tab label="Stocks">
         <mat-table [dataSource]="stockEntries" class="mat-elevation-z8">
@@ -10,13 +17,13 @@
             <!-- Ticker Symbol Column -->
             <ng-container matColumnDef="ticker_symbol">
               <mat-header-cell *matHeaderCellDef> Ticker Symbol </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.ticker_symbol}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.stock.tickerSymbol}} </mat-cell>
             </ng-container>
           
             <!-- Trade Date Column -->
             <ng-container matColumnDef="trade_date">
               <mat-header-cell *matHeaderCellDef> Trade Date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.trade_date}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.stock.tradeDate}} </mat-cell>
             </ng-container>
           
             <!-- Asset Name Column -->
@@ -30,12 +37,7 @@
               <mat-header-cell *matHeaderCellDef> Volume </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.volume}} </mat-cell>
             </ng-container>
-          
-            <!-- Transaction Date Column -->
-            <ng-container matColumnDef="transaction_date">
-              <mat-header-cell *matHeaderCellDef> Transaction Date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.transaction_date}} </mat-cell>
-            </ng-container>
+      
           
             <!-- Bought Price Column -->
             <ng-container matColumnDef="bought_price">
@@ -62,13 +64,13 @@
             <!-- Ticker Symbol Column -->
             <ng-container matColumnDef="ticker_symbol">
               <mat-header-cell *matHeaderCellDef> Ticker Symbol </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.ticker_symbol}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.bond.tickerSymbol}} </mat-cell>
             </ng-container>
           
             <!-- Trade Date Column -->
             <ng-container matColumnDef="trade_date">
               <mat-header-cell *matHeaderCellDef> Trade Date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.trade_date}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.bond.tradeDate}} </mat-cell>
             </ng-container>
           
             <!-- Asset Name Column -->
@@ -77,22 +79,17 @@
               <mat-cell *matCellDef="let element"> {{element.asset_name}} </mat-cell>
             </ng-container>
           
-            <!-- Transaction Date Column -->
-            <ng-container matColumnDef="transaction_date">
-              <mat-header-cell *matHeaderCellDef> Transaction Date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.transaction_date}} </mat-cell>
-            </ng-container>
-          
+       
             <!-- Bond Price Column -->
             <ng-container matColumnDef="bond_price">
               <mat-header-cell *matHeaderCellDef> Bond Price </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.bond_price}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.bond.bondPrice}} </mat-cell>
             </ng-container>
           
             <!-- Maturity Date Column -->
             <ng-container matColumnDef="maturity_date">
               <mat-header-cell *matHeaderCellDef> Maturity Date </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.maturity_date}} </mat-cell>
+              <mat-cell *matCellDef="let element"> {{element.bond.maturityDate}} </mat-cell>
             </ng-container>
           
             <!-- Header Row -->
@@ -101,7 +98,25 @@
             <!-- Row -->
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
-          <button mat-flat-button>Switch to charts</button>
+          
     </mat-tab>
 
 </mat-tab-group>
+</div>
+
+<div class="chart-container">
+  <div class="chart-row">
+    <div class="chart">
+      <canvas style="display: none;" #pieChart1 id="pieChart1" [height]="50"></canvas>
+    </div>
+  </div>
+  <div class="chart-row bottom-row">
+    <div class="chart">
+      <canvas style="display: none;" #pieChartBonds id="pieChartBonds" [height]="50"></canvas>
+    </div>
+    <div class="chart">
+      <canvas style="display: none;" #pieChartStocks id="pieChartStocks" [height]="50"></canvas>
+    </div>
+  </div>
+</div>
+

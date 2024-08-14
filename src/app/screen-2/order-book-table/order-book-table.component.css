@@ -1,0 +1,24 @@
+.chart-container {
+    text-align: center; /* Center-aligns the content within the container */
+  }
+  
+  .chart-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Space between rows */
+  }
+  
+  .bottom-row {
+    margin-top: 20px; /* Space above the bottom row */
+  }
+  
+  .chart {
+    width: 450px;
+    /* Ensures each chart takes up the same width */
+  }
+  
+  /* Optional: if you want the bottom charts to have some space between them */
+  .bottom-row .chart {
+    margin: 70px 10px;
+  }
+  
