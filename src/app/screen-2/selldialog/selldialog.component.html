@@ -1,0 +1,11 @@
+ <mat-tab-group>
+ <mat-tab label="Sell">  
+      <mat-form-field>
+         
+        <mat-label> Quantity </mat-label>
+        <input type="number" min="0"  matInput [formControl]="quantity">
+        </mat-form-field>
+        <pre> <span> Selected Quantity: {{quantity.value}}    Price: {{ quantity.value * data.stock_price}}</span></pre>
+        
+    <button mat-raised-button (click)="sellStock()">Sell</button>
+</mat-tab> </mat-tab-group>

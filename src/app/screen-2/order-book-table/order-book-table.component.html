@@ -9,15 +9,16 @@
     <mat-tab label="Stocks">
         <mat-table [dataSource]="stockEntries" class="mat-elevation-z8">
             <!-- Order ID Column -->
+
             <ng-container matColumnDef="order_id">
               <mat-header-cell *matHeaderCellDef> Order ID </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.order_id}} </mat-cell>
             </ng-container>
           
             <!-- Ticker Symbol Column -->
-            <ng-container matColumnDef="ticker_symbol">
-              <mat-header-cell *matHeaderCellDef> Ticker Symbol </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.stock.tickerSymbol}} </mat-cell>
+            <ng-container matColumnDef="ticker_symbol"   >
+              <mat-header-cell  *matHeaderCellDef> Ticker Symbol </mat-header-cell>
+              <mat-cell  *matCellDef="let element"> <span style="cursor: pointer;" (click)="openDialog(element.stock.tickerSymbol, true)"> {{element.stock.tickerSymbol}}</span>  </mat-cell>
             </ng-container>
           
             <!-- Trade Date Column -->

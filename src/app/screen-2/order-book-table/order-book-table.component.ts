@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { StockComponent } from '../../screen-1/stock/stock.component';
 import { BondComponent } from '../../screen-1/bond/bond.component';
 import Chart from 'chart.js/auto';
+import { SelldialogComponent } from '../selldialog/selldialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 export class OrderBookStockEntry{
@@ -79,6 +81,7 @@ export class OrderBookTableComponent {
   pieChartBondsChart: any;
   @ViewChild("pieChartBonds")
   canvasBond: ElementRef<HTMLCanvasElement>;
+  readonly dialog = inject(MatDialog);
   handleSwitch(){
     this.toggleCharts = !this.toggleCharts;
     if(!this.toggleCharts){
@@ -308,6 +311,20 @@ this.http.get<any>(environment.apiUrl+'/assets/order_bonds').subscribe(data=>{
     this.fetchOrderBookStocks();
   }
 
+  
+
+  openDialog(ticker, isStock:boolean) {
+    let data = {
+      tickerSymbol: ticker,
+      type: isStock? 'stock' : 'bond'
+    }
+    //fetch data from api based on ticker_id parameter
+
+    this.dialog.open(SelldialogComponent, 
+      {
+      data: data,
+    });
+  }
   constructor(private http: HttpClient){
 
   }

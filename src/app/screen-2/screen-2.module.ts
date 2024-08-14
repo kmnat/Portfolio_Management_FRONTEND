@@ -26,13 +26,15 @@ import { OrderBookTableComponent } from './order-book-table/order-book-table.com
 import { TradeBookTableComponent } from './trade-book-table/trade-book-table.component';
 import { CashflowBookTableComponent } from './cashflow-book-table/cashflow-book-table.component';
 import { NgChartjsModule } from 'ng-chartjs';
+import { SelldialogComponent } from './selldialog/selldialog.component';
 @NgModule({
   declarations: [
 
   MainScreen2Component,
     OrderBookTableComponent,
     TradeBookTableComponent,
-    CashflowBookTableComponent
+    CashflowBookTableComponent,
+    SelldialogComponent
   ],
   imports: [
     CommonModule, MatTabsModule, MatCardModule,MatGridListModule, MatDatepickerModule, MatInputModule, MatFormFieldModule, MatDialogModule,
@@ -44,7 +46,7 @@ import { NgChartjsModule } from 'ng-chartjs';
   exports: [
  MatTabsModule, MatCardModule,MatGridListModule,MatDialogActions,
     MatDialogClose, 
-    MatDialogContent, ReactiveFormsModule,
+    MatDialogContent, ReactiveFormsModule, SelldialogComponent,
     MatDialogTitle, FormsModule, MatButtonModule, MatDialogModule, MatTableModule
   ],
 })
