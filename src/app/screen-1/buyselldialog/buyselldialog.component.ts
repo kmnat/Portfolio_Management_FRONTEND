@@ -25,11 +25,13 @@ export class BuyselldialogComponent {
     this.http.post<any>(environment.apiUrl + "/assets/buyStock?quantity=" + this.quantity.value + "&tickerSymbol=" + this.data.tickerSymbol , { }).subscribe(response =>{
        console.log(response);
     })
+    this.onNoClick();
  }
  buyBond(){
   this.http.post<any>(environment.apiUrl + "/assets/buyBond?quantity=" + this.quantity.value + "&tickerSymbol=" + this.data.tickerSymbol , { }).subscribe(response =>{
     console.log(response);
  })
+ this.onNoClick();
  }
   sellStock(){
 

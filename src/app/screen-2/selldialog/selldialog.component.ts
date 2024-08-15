@@ -32,6 +32,7 @@ this.http.get<any>(environment.apiUrl + '/assets/unrealised_pnl/' + this.data.ti
 this.http.post<any>(environment.apiUrl + "/assets/sellStock?quantity=" + this.quantity.value + "&tickerSymbol=" + this.data.tickerSymbol , { }).subscribe(response =>{
   console.log(response);
 })
+this.onNoClick();
   }
   onNoClick(): void {
     this.dialogRef.close();
