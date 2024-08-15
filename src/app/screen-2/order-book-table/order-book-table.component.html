@@ -45,14 +45,20 @@
               <mat-header-cell *matHeaderCellDef> Bought Price </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.bought_price}} </mat-cell>
             </ng-container>
-          
+
+              <!-- Unrealized P&L Column -->
+  <ng-container matColumnDef="unrealized_pnl">
+    <mat-header-cell *matHeaderCellDef> Unrealized PnL </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{getUnrealizedPnl(element) | number:'1.2-2'}} </mat-cell>
+  </ng-container>
+            
             <!-- Header Row -->
             <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
           
             <!-- Row -->
             <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
           </mat-table>
-          <button mat-flat-button>Switch to charts</button>  
+        
     </mat-tab>
     <mat-tab label="Bonds">
         <mat-table [dataSource]="bondEntries" class="mat-elevation-z8">

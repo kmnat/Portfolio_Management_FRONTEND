@@ -10,11 +10,22 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class OrderBookStockEntry{
   
-    order_id : number;
-    stock: StockComponent;
-    asset_name :string;
-    volume:number;
-    bought_price : number;
+ order_id: number;
+ stock: {
+  tickerSymbol: string;
+  tradeDate: string;
+  averageVolume: number;
+  companyName: string;
+  industry: string;
+  marketExchange: number;
+  stockPrice: number;
+  week52High: number;
+  week52Low: number;
+  currentPrice: number;
+};
+asset_name: string;
+volume: number;
+bought_price: number;
   
 }
 
@@ -58,7 +69,8 @@ export class OrderBookTableComponent {
     'asset_name',
     'volume',
 
-    'bought_price'
+    'bought_price',
+    'unrealized_pnl',
   ];
   pieChart1: any;
   @ViewChild("pieChart1")
@@ -82,6 +94,9 @@ export class OrderBookTableComponent {
   @ViewChild("pieChartBonds")
   canvasBond: ElementRef<HTMLCanvasElement>;
   readonly dialog = inject(MatDialog);
+  getUnrealizedPnl(entry: OrderBookStockEntry): number {
+    return entry.stock.currentPrice - entry.bought_price;
+  }
   handleSwitch(){
     this.toggleCharts = !this.toggleCharts;
     if(!this.toggleCharts){
@@ -165,10 +180,10 @@ export class OrderBookTableComponent {
   getPieChartBondsData() {
     this.bondEntries.forEach((entry) => {
    
-        if (!this.pieChartBondsData[entry.bond.issuer]) {
-          this.pieChartBondsData[entry.bond.issuer] = 0;
+        if (!this.pieChartBondsData[entry.bond.tickerSymbol]) {
+          this.pieChartBondsData[entry.bond.tickerSymbol] = 0;
         
-        this.pieChartBondsData[entry.bond.issuer] += Number(entry.bond.bondPrice);
+        this.pieChartBondsData[entry.bond.tickerSymbol] += Number(entry.bond.bondPrice);
       }
     });
     console.log(this.pieChartBondsData)
@@ -177,10 +192,10 @@ export class OrderBookTableComponent {
   getPieChartStocksData() {
     this.stockEntries.forEach((entry) => {
     
-        if (!this.pieChartStocksData[entry.asset_name]) {
-          this.pieChartStocksData[entry.asset_name] = 0;
+        if (!this.pieChartStocksData[entry.stock.tickerSymbol]) {
+          this.pieChartStocksData[entry.stock.tickerSymbol] = 0;
         }
-        this.pieChartStocksData[entry.asset_name] += Number(entry.bought_price);
+        this.pieChartStocksData[entry.stock.tickerSymbol] += Number(entry.bought_price);
       
     });
   }
@@ -292,6 +307,7 @@ if(this.pieChartBonds) this.pieChartBonds.destroy();
       this.stockEntries = data
       this.getPieChartStocksData();
       this.getPieChart1Data();
+     
     })
   
     

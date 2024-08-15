@@ -42,6 +42,11 @@ chart : any;
 @ViewChild('chart')
 canvas: ElementRef<HTMLCanvasElement>;
 
+
+chartLine : any;
+@ViewChild('chartLine')
+canvasLine: ElementRef<HTMLCanvasElement>;
+
 constructor(private http: HttpClient){
 
 }
@@ -105,32 +110,32 @@ this.http.get<any>(environment.apiUrl + '/assets/cashflow').subscribe(data=>{
 
   // Aggregate realized PnL by date and asset
   this.cashFlowEntries.forEach(entry => {
-    const { date, asset_name, realized_pnl } = entry;
+    const { date, ticker_symbol, realized_pnl } = entry;
     if (!dateMap.has(date)) {
       dateMap.set(date, {});
     }
     const assetData = dateMap.get(date);
-    if (!assetData[asset_name]) {
-      assetData[asset_name] = 0;
+    if (!assetData[ticker_symbol]) {
+      assetData[ticker_symbol] = 0;
     }
-    assetData[asset_name] += realized_pnl;
+    assetData[ticker_symbol] += realized_pnl;
   });
 
   // Prepare chart data
   const dates = Array.from(dateMap.keys());
-  const assets = new Set<string>();
+  const ticker_symbols = new Set<string>();
   const datasets = [];
 
   // Collect all unique assets
-  dateMap.forEach(assetData => {
-    Object.keys(assetData).forEach(asset => assets.add(asset));
+  dateMap.forEach(ticker_symbolData => {
+    Object.keys(ticker_symbolData).forEach(ticker_symbol => ticker_symbols.add(ticker_symbol));
   });
 
   // Prepare datasets for Chart.js
-  assets.forEach(asset => {
-    const data = dates.map(date => dateMap.get(date)[asset] || 0);
+  ticker_symbols.forEach(ticker_symbol => {
+    const data = dates.map(date => dateMap.get(date)[ticker_symbol] || 0);
     datasets.push({
-      label: asset,
+      label: ticker_symbol,
       data,
       backgroundColor: this.getRandomColor(), // Use a function to generate colors
     });
@@ -152,13 +157,28 @@ getRandomColor() {
   return color;
 }
 
-
 createChart() {
-  const ctx = this.canvas.nativeElement.getContext('2d');
+  const ctxBar = this.canvas.nativeElement.getContext('2d');
+  const ctxLine = this.canvasLine.nativeElement.getContext('2d'); // Assuming you have a separate canvas for the trendline
 
-  this.chart = new Chart(ctx, {
+  // Ensure `this.chartData` is properly structured for the stacked bar chart
+  const dates = this.chartData.labels as string[];
+
+  // Calculate net values for each date
+  const netValues = dates.map(date => {
+    const dataPoints = this.chartData.datasets.map(dataset =>
+      dataset.data[dates.indexOf(date)] || 0
+    );
+    return dataPoints.reduce((acc, value) => acc + value, 0);
+  });
+
+  // Create the stacked bar chart
+  new Chart(ctxBar, {
     type: 'bar',
-    data: this.chartData,
+    data: {
+      labels: dates,
+      datasets: this.chartData.datasets
+    },
     options: {
       responsive: true,
       plugins: {
@@ -181,11 +201,62 @@ createChart() {
         },
         y: {
           stacked: true,
+          ticks: {
+            callback: (value) => `${value}`
+          }
+        }
+      }
+    }
+  });
+
+  // Create the trendline chart
+  new Chart(ctxLine, {
+    type: 'line',
+    data: {
+      labels: dates,
+      datasets: [
+        {
+          type: 'line',
+          label: 'Trendline',
+          data: netValues,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 2,
+          fill: false,
+          tension: 0.1, // Smooth line
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const label = context.dataset.label || '';
+              const value = context.raw;
+              return `${label}: ${value}`;
+            }
+          }
+        },
+      },
+      scales: {
+        x: {
+          type: 'category',
+          labels: dates,
+        },
+        y: {
+          ticks: {
+            callback: (value) => `${value}`
+          }
         }
       }
     }
   });
 }
+
 
 
 
