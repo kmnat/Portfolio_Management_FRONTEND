@@ -194,6 +194,14 @@ createChart() {
             }
           }
         },
+        title: {
+          display: true,
+          text: 'Realized Profit and Loss (P&L) Across Time by Asset',
+          padding: {
+            top: 10,
+            bottom: 20
+          }
+        }
       },
       scales: {
         x: {
@@ -241,6 +249,14 @@ createChart() {
             }
           }
         },
+        title: {
+          display: true,
+          text: 'Net Profit and Loss (P&L) Across Time',
+          padding: {
+            top: 10,
+            bottom: 20
+          }
+        }
       },
       scales: {
         x: {
