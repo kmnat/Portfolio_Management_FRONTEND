@@ -23,6 +23,7 @@
     <mat-grid-list cols="2" >
       <mat-grid-tile *ngFor="let ticker of bondList">
         <app-bond 
+     
           (click)="openDialog(ticker, false)"
           [ticker_symbol]="ticker.tickerSymbol"
           [bond_price]="ticker.bondPrice"

@@ -70,7 +70,7 @@ export class OrderBookTableComponent {
     'volume',
 
     'bought_price',
-    'unrealized_pnl',
+   
   ];
   pieChart1: any;
   @ViewChild("pieChart1")

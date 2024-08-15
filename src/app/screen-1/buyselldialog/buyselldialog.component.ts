@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { environment } from '../../../environments/environment.development';
 
 @Component({
@@ -18,6 +18,7 @@ export class BuyselldialogComponent {
   buyTransactionPrice = 0;
   sellTransactionPrice = 0;
   quantity = new FormControl(0);
+  @Output() close = new EventEmitter<void>();
 
 
  buyStock(){
@@ -37,8 +38,11 @@ export class BuyselldialogComponent {
   sellBond(){
 
   }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
+  constructor( public dialogRef: MatDialogRef<BuyselldialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient) {
 
   }
 
