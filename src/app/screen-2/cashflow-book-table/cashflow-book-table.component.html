@@ -1,9 +1,11 @@
+<button id="somebutton" (click)="handleSwitch()" mat-flat-button>
+  Switch to  <span *ngIf="toggleCharts"> table
+    </span>
+    <span *ngIf="!toggleCharts">
+    charts </span></button> 
+<div *ngIf="!toggleCharts">
 <mat-table [dataSource]="cashFlowEntries" class="mat-elevation-z8">
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container>
+
   
     <!-- Ticker Symbol Column -->
     <ng-container matColumnDef="ticker_symbol">
@@ -29,23 +31,19 @@
       <mat-cell *matCellDef="let element"> {{element.realized_pnl}} </mat-cell>
     </ng-container>
   
-    <!-- Unrealized PnL Column -->
-    <ng-container matColumnDef="unrealized_pnl">
-      <mat-header-cell *matHeaderCellDef> Unrealized PnL </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.unrealized_pnl}} </mat-cell>
-    </ng-container>
   
     <!-- Header Row -->
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   
     <!-- Row -->
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  <div style="width: 600px;">
-    <canvas #chart id="chart" > {{chart }}</canvas>
+  </mat-table></div>
+
+  <div style="width: 750px;">
+    <canvas  style="display: hidden;" #chart id="chart"></canvas>
   </div>
-  <div style="width: 600px">
-    <canvas #chartAsset id="chartAsset"  > {{chartAsset }}</canvas>
+
+  <div style="width: 750px;">
+    <canvas  style="display: hidden;" #chartLine id="chart"></canvas>
   </div>
-  <button id="somebutton" mat-flat-button>Switch to charts</button>
- 
+

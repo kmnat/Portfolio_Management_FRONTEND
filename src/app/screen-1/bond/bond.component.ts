@@ -23,16 +23,17 @@ export class BondComponent {
 
     @Input()face_value : Number;
 
-    @Input()issuer : String;
+    @Input()issuer : string;
 
     @Input()maturity_date : String;
     
-    historical_data: { date: string[], avg_price: number[] } = { date: [], avg_price: [] };
+    historical_data: { dates: string[], prices: number[] } = { dates: [], prices: [] };
   public lineChartData: ChartData<'line'>;
   public lineChartOptions: ChartOptions<'line'>;
   public lineChartType: ChartType = 'line';
   public lineChartLegend = true;
   public lineChartPlugins = [];
+  bondPrice: any;
 
 constructor(private http: HttpClient){
 
@@ -40,7 +41,7 @@ constructor(private http: HttpClient){
 ngOnInit(){
  
 
-  this.http.get<any>(environment.apiUrl3 + '/historical_data/' + this.issuer).subscribe(data=>{
+  this.http.get<any>(environment.apiUrl + '/assets/timeseries/bond/' + this.ticker_symbol).subscribe(data=>{
    console.log(data)
    this.historical_data = data;
    this.createChart();
@@ -50,11 +51,11 @@ ngOnInit(){
    this.chart = new Chart(this.canvas.nativeElement.getContext('2d'), {
      type: 'line' as ChartType, // Specify the type of chart here
      data: {
-       labels: this.historical_data.date,
+       labels: this.historical_data.dates,
        datasets: [
          {
            label: 'Average Price',
-           data: this.historical_data.avg_price,
+           data: this.historical_data.prices,
            borderColor: 'rgba(75, 192, 192, 1)',
            backgroundColor: 'rgba(75, 192, 192, 0.2)',
            fill: false

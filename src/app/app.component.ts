@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'portfolio-management';
   
- apiServiceUrl = 'https://my-json-server.typicode.com/ishashukla183/temporary_data/'
-
+  constructor(private router: Router){
+    
+  }
+  
+  
+ 
 }

@@ -10,6 +10,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { Screen2Module } from './screen-2/screen-2.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     Screen1Module,
     Screen2Module,
-    NgbModule, 
+    NgbModule, MatIconModule, MatToolbarModule, MatButtonModule
  
   ],
   providers: [provideHttpClient(withFetch()), provideAnimationsAsync()],

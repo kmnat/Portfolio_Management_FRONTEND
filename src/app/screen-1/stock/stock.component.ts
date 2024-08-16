@@ -22,7 +22,7 @@ export class StockComponent {
   @Input() week52low: Number;
 @Input() ticker_symbol: String ;
 @Input() market_exchange : String;
-historical_data: { date: string[], avg_price: number[] } = { date: [], avg_price: [] };
+historical_data: { dates: string[], prices: number[] } = { dates: [], prices: [] };
   public lineChartData: ChartData<'line'>;
   public lineChartOptions: ChartOptions<'line'>;
   public lineChartType: ChartType = 'line';
@@ -37,7 +37,7 @@ constructor(private http: HttpClient){
 ngOnInit(){
  
 
- this.http.get<any>(environment.apiUrl3 + '/historical_data/' + this.company_name).subscribe(data=>{
+ this.http.get<any>(environment.apiUrl + '/assets/timeseries/stock/' + this.ticker_symbol).subscribe(data=>{
   console.log(data)
   this.historical_data = data;
   this.createChart();
@@ -47,11 +47,11 @@ createChart(): void {
   this.chart = new Chart(this.canvas.nativeElement.getContext('2d'), {
     type: 'line' as ChartType, // Specify the type of chart here
     data: {
-      labels: this.historical_data.date,
+      labels: this.historical_data.dates,
       datasets: [
         {
           label: 'Average Price',
-          data: this.historical_data.avg_price,
+          data: this.historical_data.prices,
           borderColor: 'rgba(75, 192, 192, 1)',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           fill: false

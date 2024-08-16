@@ -6,12 +6,10 @@ import { NgChartjsModule } from 'ng-chartjs';
 import 'chartjs-adapter-moment';
 
 export class CashFlowBookEntry {
-  id: number;
   ticker_symbol: string;
   date: string;
   asset_name: string;
   realized_pnl: number;
-  unrealized_pnl: number;
 }
 
 @Component({
@@ -24,32 +22,55 @@ export class CashFlowBookEntry {
 export class CashflowBookTableComponent {
   cashFlowEntries: CashFlowBookEntry[] = [];
   displayedColumns: string[] = [
-    'id',
+
     'ticker_symbol',
     'date',
     'asset_name',
     'realized_pnl',
-    'unrealized_pnl'
+  
   ];
-chartData = {
-  'Realized PnL' :  [],
-  'Unrealized PnL' : [],
-  'Date': []
-}
-chartDataAsset = {
-  'Realized PnL' : [],
-  'Unrealized PnL' : [],
-  'Asset Name' : []
+  toggleCharts : boolean = false;
+chartData : {
+  labels: string[], // Array of dates
+  datasets: {
+    label: string, // Asset name
+    data: number[], // Array of realized PnL values
+    backgroundColor: string // Color for the dataset
+  }[]
 };
-
 chart : any;
 @ViewChild('chart')
 canvas: ElementRef<HTMLCanvasElement>;
 
-chartAsset : any;
-@ViewChild('chartAsset')
-canvasAsset : ElementRef<HTMLCanvasElement>;
-constructor(private http: HttpClient){}
+
+chartLine : any;
+@ViewChild('chartLine')
+canvasLine: ElementRef<HTMLCanvasElement>;
+
+constructor(private http: HttpClient){
+
+}
+pieChart1: any;
+@ViewChild("pieChart1")
+canvas1: ElementRef<HTMLCanvasElement>;
+pieChart1Data = {
+  "Stocks" : 0,
+  "Bonds" : 0
+}
+
+
+pieChartStocks: any;
+pieChartStocksData : { [key: string]: number } = { };
+pieChartStocksChart: any;
+@ViewChild("pieChartStocks")
+canvasStock: ElementRef<HTMLCanvasElement>;
+
+
+pieChartBonds: any;
+pieChartBondsData: { [key: string]: number } = { };
+pieChartBondsChart: any;
+@ViewChild("pieChartBonds")
+canvasBond: ElementRef<HTMLCanvasElement>;
 
 ngOnInit(){
   this.fetchCashflowBook();
@@ -57,73 +78,195 @@ ngOnInit(){
  
 } 
 
+handleSwitch(){
+  this.toggleCharts = !this.toggleCharts;
+  if(!this.toggleCharts){
+   
+    this.canvas.nativeElement.style.display="none";
+  } 
+  else{
+this.canvas.nativeElement.style.display="";
+
+this.createChart();
+
+
+  } 
+}
+
+
 fetchCashflowBook(){
-this.http.get<any>(environment.apiUrl2 + 'cashflowbook/').subscribe(data=>{
+this.http.get<any>(environment.apiUrl + '/assets/cashflow').subscribe(data=>{
   this.cashFlowEntries = data
-  console.log(data)
-this.getChartData();
-this.getChartDataAsset();
-  console.log(this.chartData);
-  Chart.register(...registerables);
-  this.createChart();
-this.createChartAsset();
+  console.log(data);
+  this.getChartData();
+
+
+
 });
 
  } 
-getChartData(){
+ getChartData() {
+  const dateMap = new Map<string, { [asset: string]: number }>();
+
+  // Aggregate realized PnL by date and asset
   this.cashFlowEntries.forEach(entry => {
-    this.chartData['Realized PnL'].push(entry.realized_pnl);
-    this.chartData['Unrealized PnL'].push(entry.unrealized_pnl);
-    this.chartData['Date'].push(entry.date);
+    const { date, ticker_symbol, realized_pnl } = entry;
+    if (!dateMap.has(date)) {
+      dateMap.set(date, {});
+    }
+    const assetData = dateMap.get(date);
+    if (!assetData[ticker_symbol]) {
+      assetData[ticker_symbol] = 0;
+    }
+    assetData[ticker_symbol] += realized_pnl;
   });
 
-  console.log(this.chartData);
-}
+  // Prepare chart data
+  const dates = Array.from(dateMap.keys());
+  const ticker_symbols = new Set<string>();
+  const datasets = [];
 
-getChartDataAsset(){
-  this.cashFlowEntries.forEach(entry => {
-    this.chartDataAsset['Realized PnL'].push(entry.realized_pnl);
-    this.chartDataAsset['Unrealized PnL'].push(entry.unrealized_pnl);
-    this.chartDataAsset['Asset Name'].push(entry.asset_name);
+  // Collect all unique assets
+  dateMap.forEach(ticker_symbolData => {
+    Object.keys(ticker_symbolData).forEach(ticker_symbol => ticker_symbols.add(ticker_symbol));
   });
 
+  // Prepare datasets for Chart.js
+  ticker_symbols.forEach(ticker_symbol => {
+    const data = dates.map(date => dateMap.get(date)[ticker_symbol] || 0);
+    datasets.push({
+      label: ticker_symbol,
+      data,
+      backgroundColor: this.getRandomColor(), // Use a function to generate colors
+    });
+  });
+
+  this.chartData = {
+    labels: dates,
+    datasets,
+  };
 }
 
 
-createChart(){
+getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
- this.chart =  new Chart( this.canvas.nativeElement.getContext('2d'), {
-    type: 'line', // Specify the type of chart here
+createChart() {
+  const ctxBar = this.canvas.nativeElement.getContext('2d');
+  const ctxLine = this.canvasLine.nativeElement.getContext('2d'); // Assuming you have a separate canvas for the trendline
+
+  // Ensure `this.chartData` is properly structured for the stacked bar chart
+  const dates = this.chartData.labels as string[];
+
+  // Calculate net values for each date
+  const netValues = dates.map(date => {
+    const dataPoints = this.chartData.datasets.map(dataset =>
+      dataset.data[dates.indexOf(date)] || 0
+    );
+    return dataPoints.reduce((acc, value) => acc + value, 0);
+  });
+
+  // Create the stacked bar chart
+  new Chart(ctxBar, {
+    type: 'bar',
     data: {
-      labels: this.chartData['Date'],
-    
+      labels: dates,
+      datasets: this.chartData.datasets
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const label = context.dataset.label || '';
+              const value = context.raw;
+              return `${label}: ${value}`;
+            }
+          }
+        },
+        title: {
+          display: true,
+          text: 'Realized Profit and Loss (P&L) Across Time by Asset',
+          padding: {
+            top: 10,
+            bottom: 20
+          }
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+          ticks: {
+            callback: (value) => `${value}`
+          }
+        }
+      }
+    }
+  });
+
+  // Create the trendline chart
+  new Chart(ctxLine, {
+    type: 'line',
+    data: {
+      labels: dates,
       datasets: [
         {
-          label: 'Realized PnL',
-          data: this.chartData['Realized PnL'],
-          borderColor: 'rgba(75, 192, 192, 1)',
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          fill: false
-        },
-        {
-          label: 'Unrealized PnL',
-          data: this.chartData['Unrealized PnL'],
-          borderColor: 'rgba(153, 102, 255, 1)',
-          backgroundColor: 'rgba(153, 102, 255, 0.2)',
-          fill: false
+          type: 'line',
+          label: 'Trendline',
+          data: netValues,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 2,
+          fill: false,
+          tension: 0.1, // Smooth line
         }
       ]
     },
     options: {
-      scales: {
-        x: {
-          type: 'time',
-          time: {
-            unit: 'day'
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const label = context.dataset.label || '';
+              const value = context.raw;
+              return `${label}: ${value}`;
+            }
           }
         },
+        title: {
+          display: true,
+          text: 'Net Profit and Loss (P&L) Across Time',
+          padding: {
+            top: 10,
+            bottom: 20
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'category',
+          labels: dates,
+        },
         y: {
-          beginAtZero: true
+          ticks: {
+            callback: (value) => `${value}`
+          }
         }
       }
     }
@@ -131,43 +274,9 @@ createChart(){
 }
 
 
-createChartAsset(){
 
-  this.chartAsset =  new Chart( this.canvasAsset.nativeElement.getContext('2d'), {
-     type: 'bar', // Specify the type of chart here
-     data: {
-       labels: this.chartDataAsset['Asset Name'],
-     
-       datasets: [
-         {
-           label: 'Realized PnL',
-           data: this.chartData['Realized PnL'],
-           borderColor: 'rgba(75, 192, 192, 1)',
-           backgroundColor: 'rgba(75, 192, 192, 0.2)',
-           stack: 'stack1'
-         },
-         {
-           label: 'Unrealized PnL',
-           data: this.chartData['Unrealized PnL'],
-           borderColor: 'rgba(153, 102, 255, 1)',
-           backgroundColor: 'rgba(153, 102, 255, 0.2)',
-           stack: 'stack2'
-         }
-       ]
-     },
-     options: {
-      scales: {
-        x: {
-          stacked: true // Enable stacking on x-axis
-        },
-        y: {
-          stacked: true, // Enable stacking on y-axis
-          beginAtZero: true
-        }
-      }
-     }
-   });
- }
+
+
 
 
 }
